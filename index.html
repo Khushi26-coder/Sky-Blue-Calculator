@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sky Blue Calculator</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#87CEEB,#B0E0E6,#E0F7FF);
+}
+
+.calculator{
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(15px);
+    padding:25px;
+    border-radius:25px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.2);
+}
+
+#display{
+    width:100%;
+    height:80px;
+    border:none;
+    outline:none;
+    border-radius:15px;
+    margin-bottom:20px;
+    text-align:right;
+    font-size:2rem;
+    padding:15px;
+    background:rgba(255,255,255,0.5);
+    color:#003366;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,70px);
+    gap:12px;
+}
+
+button{
+    height:65px;
+    border:none;
+    border-radius:15px;
+    font-size:1.3rem;
+    cursor:pointer;
+    transition:0.3s;
+    background:white;
+    color:#003366;
+    font-weight:bold;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+.operator{
+    background:#5DADE2;
+    color:white;
+}
+
+.equal{
+    background:#3498DB;
+    color:white;
+}
+
+.clear{
+    background:#E74C3C;
+    color:white;
+}
+
+.zero{
+    grid-column:span 2;
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" readonly>
+
+    <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">AC</button>
+        <button class="operator" onclick="append('%')">%</button>
+        <button class="operator" onclick="deleteLast()">⌫</button>
+        <button class="operator" onclick="append('/')">÷</button>
+
+        <button onclick="append('7')">7</button>
+        <button onclick="append('8')">8</button>
+        <button onclick="append('9')">9</button>
+        <button class="operator" onclick="append('*')">×</button>
+
+        <button onclick="append('4')">4</button>
+        <button onclick="append('5')">5</button>
+        <button onclick="append('6')">6</button>
+        <button class="operator" onclick="append('-')">−</button>
+
+        <button onclick="append('1')">1</button>
+        <button onclick="append('2')">2</button>
+        <button onclick="append('3')">3</button>
+        <button class="operator" onclick="append('+')">+</button>
+
+        <button class="zero" onclick="append('0')">0</button>
+        <button onclick="append('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+const display = document.getElementById("display");
+
+function append(value){
+    display.value += value;
+}
+
+function clearDisplay(){
+    display.value = "";
+}
+
+function deleteLast(){
+    display.value = display.value.slice(0,-1);
+}
+
+function calculate(){
+    try{
+        display.value = eval(display.value);
+    }
+    catch{
+        display.value = "Error";
+    }
+}
+
+document.addEventListener("keydown", function(event){
+    const key = event.key;
+
+    if(!isNaN(key) || "+-*/.%".includes(key)){
+        append(key);
+    }
+    else if(key === "Enter"){
+        calculate();
+    }
+    else if(key === "Backspace"){
+        deleteLast();
+    }
+    else if(key === "Escape"){
+        clearDisplay();
+    }
+});
+</script>
+
+</body>
+</html>
