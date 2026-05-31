@@ -31,3 +31,5 @@ LICENSE
 
 ## Author
 Khushi Rani
+## Live Demo
+https://khushi26-coder.github.io/Sky-Blue-Calculator/
